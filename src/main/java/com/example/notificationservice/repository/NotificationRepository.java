@@ -9,5 +9,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface NotificationRepository extends CrudRepository<Notification, UUID> {
+    Notification save(Notification notification);
     List<Notification> findByUserId(UUID uuid);
 }

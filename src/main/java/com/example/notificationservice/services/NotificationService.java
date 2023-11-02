@@ -1,16 +1,19 @@
 package com.example.notificationservice.services;
 
-import com.example.notificationservice.dtos.NotificationDto;
+import com.example.notificationservice.dtos.NotificationStorageDto;
+import com.example.notificationservice.dtos.RequestDto;
+import com.example.notificationservice.models.Notification;
+import com.example.notificationservice.models.NotificationStatus;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface NotificationService {
-    String sendNotification(NotificationDto notification);
+    String sendNotification(RequestDto notification);
+    Notification createNotification(RequestDto notification);
 
     String deleteNotification(String id);
 
-    String markNotificationAsRead(String id);
+    String updateNotificationStatus(String id, NotificationStatus notificationStatus);
 
-    List<NotificationDto> getNotificationsByUser(String id);
+    List<NotificationStorageDto> getNotificationsByUser(String id);
 }

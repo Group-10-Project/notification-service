@@ -12,9 +12,9 @@ import java.util.UUID;
 @Entity
 public class Notification extends BaseModel{
     private Timestamp createdAt;
-    private Timestamp recievedAt;
+    private Timestamp deliveredAt;
     private UUID userId;
-    private UUID serviceId;
+    private UUID microserviceId; //where do we store this or we can also segregate in the notification layer via route
     private String message;
     private NotificationStatus notificationStatus;
     //notificationSource: which notification it is coming from
