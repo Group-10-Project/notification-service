@@ -19,6 +19,8 @@ public class NotificationController {
         this.notificationService = notificationService;
     }
 
+    /* copilot: make this sendNotification method to return a response entity with string and status code? */
+
     @PostMapping
     public ResponseEntity<String> sendNotification(@RequestBody RequestDto notification) {
         //Creation: send an acknowledgement 200 OK
@@ -32,22 +34,32 @@ public class NotificationController {
     //whatever undelivered deleted those notifications
     //change the status to deleted
     //we'll receive this from microservice
+    //case to return some status code incase the notification can't be deleted
     @DeleteMapping("{id}")
-    public String deleteNotification(@PathVariable String id) {
-        return notificationService.updateNotificationStatus(id, NotificationStatus.DELETED);
+    public ResponseEntity<String> deleteNotification(@PathVariable String id) {
+        return new ResponseEntity<>(
+            notificationService.updateNotificationStatus(id, NotificationStatus.DELETED),
+            HttpStatus.OK
+        );
     }
 
 
     //this call we'll get from the microservice
     @PatchMapping("{id}")
-    public String markNotificationAsRead(@PathVariable String id) {
+    public ResponseEntity<String> markNotificationAsRead(@PathVariable String id) {
         //Response: {success: true} / Error
-        return notificationService.updateNotificationStatus(id, NotificationStatus.READ);
+        return new ResponseEntity<>(
+            notificationService.updateNotificationStatus(id, NotificationStatus.READ),
+            HttpStatus.OK
+        );
     }
 
     //one more parameter for status optional default unread
     @GetMapping("{id}")
-    public List<NotificationStorageDto> getNotificationsByUser(@PathVariable String id) {
-        return notificationService.getNotificationsByUser(id);
+    public ResponseEntity<List<NotificationStorageDto>> getNotificationsByUser(@PathVariable String id) {
+        return new ResponseEntity<>(
+                notificationService.getNotificationsByUser(id),
+                HttpStatus.OK
+        );
     }
 }
